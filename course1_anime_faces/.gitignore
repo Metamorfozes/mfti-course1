@@ -1,0 +1,14 @@
+# Data and results
+/data/*
+/results/*
+
+# Python cache
+__pycache__/
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Virtual environments
+.venv/
