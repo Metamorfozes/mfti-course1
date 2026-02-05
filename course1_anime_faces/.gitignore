@@ -2,13 +2,46 @@
 /data/*
 /results/*
 
-# Python cache
-__pycache__/
-
 # Model checkpoints
 *.pt
 *.pth
 *.ckpt
 
-# Virtual environments
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Torch / CUDA
+_torch_extensions/
+torch_extensions/
+**/torch_extensions/
+
+# ZSSGAN temp
+sample/
+checkpoint/
+logs/
+
+# Virtual env
 .venv/
+
+# IDE / OS
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# environments
+.venv/
+.env/
+
+# pytorch / torch extensions
+_torch_extensions/
+
+# python cache
+__pycache__/
+*.pyc
