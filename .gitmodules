@@ -1,0 +1,6 @@
+[submodule "external/stylegan-nada"]
+	path = external/stylegan-nada
+	url = https://github.com/rinongal/StyleGAN-nada.git
+[submodule "external/styleclip"]
+	path = external/styleclip
+	url = https://github.com/orpatashnik/StyleCLIP.git
