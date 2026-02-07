@@ -1,0 +1,30 @@
+{
+  "run_dir": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\results\\B_run_1024_fast_sanity",
+  "checkpoint": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\results\\B_run_1024_fast_sanity\\checkpoint\\000600.pt",
+  "size": 1024,
+  "seed": 42,
+  "steps": 100,
+  "truncation": 0.7,
+  "lr": 0.05,
+  "lambda_w": 0.02,
+  "lambda_img": 0.03,
+  "source_prompt": "photo of a face",
+  "prompt_blue": "anime portrait with blue hair",
+  "prompt_glasses": "anime portrait with glasses",
+  "clip_backend": "clip",
+  "cli_args": {
+    "run_dir": "course1_anime_faces\\results\\B_run_1024_fast_sanity",
+    "ckpt": "000600.pt",
+    "size": 1024,
+    "steps": 100,
+    "seed": 42,
+    "prompt_blue": "anime portrait with blue hair",
+    "prompt_glasses": "anime portrait with glasses",
+    "source_prompt": "",
+    "truncation": 0.7,
+    "lr": 0.05,
+    "lambda_w": 0.02,
+    "lambda_img": 0.03,
+    "out_dir": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_synthetic"
+  }
+}

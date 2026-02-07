@@ -54,3 +54,7 @@ These effects motivate manual checkpoint inspection and conservative model selec
 ## 7. Conclusion
 
 The project demonstrates that StyleGAN-NADA can adapt a pretrained FFHQ face generator to anime portrait style in a zero-shot setting at 1024 resolution. Qualitative results indicate meaningful style transfer with partial identity preservation, and checkpoint `000600.pt` provides the best observed balance for this run. The method is practical for rapid domain retargeting when target datasets are unavailable, with the caveat that visual quality control remains necessary.
+
+## 8. Editing Generated Images (Synthetic)
+
+To demonstrate synthetic editing (StyleCLIP-like), we apply CLIP-guided latent optimization on a single fixed latent code generated from seed `42` using the adapted checkpoint `course1_anime_faces/results/B_run_1024_fast_sanity/checkpoint/000600.pt`. For each target prompt, the generator is kept frozen and only the latent `w` is optimized for a small number of steps, with regularization that keeps the result close to the base image and base latent. The edit prompts are `"anime portrait with blue hair"` and `"anime portrait with glasses"`. This produces reproducible edits from the same starting identity while changing only the requested semantic attribute. Result grid path: `course1_anime_faces/final/edits_synthetic/grid.png`.
