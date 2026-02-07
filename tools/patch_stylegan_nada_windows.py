@@ -49,12 +49,22 @@ def patch_load_call(text: str) -> tuple[str, int]:
         call = text[start:end]
 
         if "extra_cuda_cflags" not in call:
-            # Insert before the last ')'
-            insert = ",\n    extra_cuda_cflags=['--allow-unsupported-compiler']"
+            # Insert before the last ')' and avoid duplicate commas when a trailing
+            # comma already exists in the argument list.
+            call_body = call[len("load("):-1]
+            has_trailing_comma = call_body.rstrip().endswith(",")
             # try to keep indentation if call already multi-line
             if "\n" in call:
+                if has_trailing_comma:
+                    if call[:-1].endswith("\n"):
+                        insert = "    extra_cuda_cflags=['--allow-unsupported-compiler']"
+                    else:
+                        insert = "\n    extra_cuda_cflags=['--allow-unsupported-compiler']"
+                else:
+                    insert = ",\n    extra_cuda_cflags=['--allow-unsupported-compiler']"
                 patched_call = call[:-1] + insert + "\n)"
             else:
+                insert = ",\n    extra_cuda_cflags=['--allow-unsupported-compiler']"
                 patched_call = call[:-1] + insert + ")"
             text = text[:start] + patched_call + text[end:]
             modified += 1
@@ -103,8 +113,8 @@ def main() -> int:
         print(f"Not found: {FILE_UTILS}")
 
     if total_mods == 0:
-        print("ERROR: no load() calls were modified.")
-        return 2
+        print("OK: patch already applied (no changes needed).")
+        return 0
 
     print(f"OK: total patches applied = {total_mods}")
     return 0
