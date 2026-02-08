@@ -99,7 +99,35 @@ This submission covers:
 - Synthetic edit pipeline: latent-only semantic editing from a fixed generated identity.
 - Real edit pipeline: inversion, anime rerendering, and semantic latent edits on real inputs.
 
-## 9. Limitations and Conclusion
+## Block Freezing Study: Mapping vs Last Blocks
+
+In this project setup (StyleGAN2 + StyleGAN-NADA), the comparison target is which generator parts are trainable:
+- **Mapping** strategy: keep mapping network frozen and optimize synthesis blocks (default branch in `SG2Generator.get_training_layers` when `phase` is not set).
+- **Last blocks** strategy: intended to optimize only late synthesis blocks via `--phase lastblocks`.
+
+Runnable entrypoints for the two strategies:
+- `run_train_anime_mapping.cmd`
+- `run_train_anime_lastblocks.cmd`
+
+Artifact-to-strategy mapping from committed runs:
+- Expected output dirs from scripts are `course1_anime_faces/results/anime_mapping/` and `course1_anime_faces/results/anime_lastblocks/`, but these directories are not present in the repository snapshot.
+- Committed run folders under `course1_anime_faces/results/` have `args.json` with `phase: null`, so strict per-strategy attribution is not recoverable from saved metadata.
+- We therefore report the comparison conservatively from available artifacts and code paths.
+
+| Strategy | Trainable parts | Expected effect | Observed behavior in our runs | Notes / failure modes |
+|---|---|---|---|---|
+| Mapping (`run_train_anime_mapping.cmd`) | In current code path with `phase=null`: most synthesis blocks trainable; mapping and ToRGB frozen (`external/stylegan-nada/ZSSGAN/model/ZSSGAN.py`). | Stable identity/layout, moderate style shift. | Qualitative stylization is visible in committed runs, including `course1_anime_faces/results/B_run_1024_fast_sanity/sample/dst_000600.jpg` and final curated samples in `samples_best/`. | No committed run folder explicitly named/recorded as `anime_mapping`; attribution relies on code + args behavior. |
+| Last blocks (`run_train_anime_lastblocks.cmd`) | Intended: only last synthesis blocks trainable. In this snapshot, `lastblocks` is not a dedicated `phase` branch, so it falls back to default behavior unless code is changed. | Potentially stronger late-stage texture/style changes with less global drift. | No committed run has `phase="lastblocks"` in `args.json`, so direct artifact-level observation for a distinct last-blocks regime is unavailable. | Main failure mode is provenance: missing strategy-tagged output dirs/metadata (`anime_lastblocks`, `phase=lastblocks`). |
+
+Side-by-side visual references from committed outputs (qualitative context):
+
+| Committed run A (`A_run_1024_iter1200`) | Committed run B (`B_run_1024_fast_sanity`) |
+|---|---|
+| ![](../../results/A_run_1024_iter1200/sample/dst_000600.jpg) | ![](../../results/B_run_1024_fast_sanity/sample/dst_000600.jpg) |
+| ![](../../results/A_run_1024_iter1200/sample/dst_001000.jpg) | ![](../../results/B_run_1024_fast_sanity/sample/dst_001000.jpg) |
+
+Conclusion for submission: we selected the final package `course1_anime_faces/final/B_run_1024_fast_sanity_best600/` with checkpoint `checkpoint/000600.pt` (source run `course1_anime_faces/results/B_run_1024_fast_sanity/`). Based on committed metadata (`phase=null`) and current code path, this corresponds to the default mapping-frozen style of training rather than a separately verifiable `lastblocks` run.
+## 10. Limitations and Conclusion
 
 Limitations are consistent with zero-shot CLIP-guided GAN adaptation:
 - CLIP bias may not fully match desired artistic quality.
@@ -108,3 +136,4 @@ Limitations are consistent with zero-shot CLIP-guided GAN adaptation:
 - Local artifacts may appear (texture noise, edge distortions, inconsistencies).
 
 Overall, the project demonstrates practical zero-shot retargeting of a pretrained FFHQ face generator to anime portraits at 1024 resolution. For this run, `checkpoint/000600.pt` provides the best observed visual balance under qualitative evaluation.
+

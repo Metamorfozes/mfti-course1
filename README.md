@@ -24,11 +24,11 @@ The pipeline follows **StyleGAN-NADA / ZSSGAN**: a frozen source generator ancho
 
 ## Scoring Checklist Coverage
 
-- Training pipeline: ✅
-- Generated images editing (synthetic): ✅
-- Real image editing: ✅
-- Blocks study (mapping vs lastblocks): ✅
-- Report + GitHub: ✅
+- Training pipeline:
+- Generated images editing (synthetic):
+- Real image editing:
+- Blocks study (mapping vs lastblocks):
+- Report + GitHub:
 
 ## Results
 
@@ -93,3 +93,10 @@ run_train_anime_lastblocks.cmd
 
 For final submission artifacts, use:
 [`course1_anime_faces/final/B_run_1024_fast_sanity_best600/`](course1_anime_faces/final/B_run_1024_fast_sanity_best600/)
+
+## Block Freezing Study (Mapping vs Last Blocks)
+
+The repository contains two launchers for this scoring item: [`run_train_anime_mapping.cmd`](run_train_anime_mapping.cmd) and [`run_train_anime_lastblocks.cmd`](run_train_anime_lastblocks.cmd). In the committed artifacts, strategy-specific output folders expected from those launchers (`course1_anime_faces/results/anime_mapping/`, `course1_anime_faces/results/anime_lastblocks/`) are not present, and saved `args.json` files in existing runs record `phase: null`. Therefore, we report this item conservatively using available qualitative outputs from committed runs: [`course1_anime_faces/results/A_run_1024_iter1200/sample/`](course1_anime_faces/results/A_run_1024_iter1200/sample/), [`course1_anime_faces/results/B_run_1024_fast_sanity/sample/`](course1_anime_faces/results/B_run_1024_fast_sanity/sample/), and the final package figures/samples in [`course1_anime_faces/final/B_run_1024_fast_sanity_best600/`](course1_anime_faces/final/B_run_1024_fast_sanity_best600/), including the side-by-side references documented in the report section [`course1_anime_faces/final/B_run_1024_fast_sanity_best600/REPORT.md`](course1_anime_faces/final/B_run_1024_fast_sanity_best600/REPORT.md).
+
+Final submission decision: we use [`course1_anime_faces/final/B_run_1024_fast_sanity_best600/checkpoint/000600.pt`](course1_anime_faces/final/B_run_1024_fast_sanity_best600/checkpoint/000600.pt), which is the selected best qualitative checkpoint from the committed run artifacts.
+
