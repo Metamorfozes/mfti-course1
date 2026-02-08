@@ -1,4 +1,4 @@
-# CLIP-Guided Anime Adaptation with StyleGAN-NADA (ZSSGAN)
+﻿# CLIP-Guided Anime Adaptation with StyleGAN-NADA (ZSSGAN)
 
 This project adapts a pretrained FFHQ StyleGAN2 face generator to anime portraits in a zero-shot setting using CLIP guidance. The goal is to transfer anime style without target-domain paired training data while preserving facial structure coherence.
 
@@ -24,11 +24,11 @@ The pipeline follows **StyleGAN-NADA / ZSSGAN**: a frozen source generator ancho
 
 ## Scoring Checklist Coverage
 
-- Training pipeline: ?
-- Generated images editing (synthetic): ?
-- Real image editing: ?
-- Blocks study (mapping vs lastblocks): ?
-- Report + GitHub: ?
+- Training pipeline: ✅
+- Generated images editing (synthetic): ✅
+- Real image editing: ✅
+- Blocks study (mapping vs lastblocks): ✅
+- Report + GitHub: ✅
 
 ## Results
 
