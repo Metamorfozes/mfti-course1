@@ -61,3 +61,17 @@ run_train_anime_lastblocks.cmd
 
 For the final submission figures/checkpoint package, use the prepared artifacts in:
 `course1_anime_faces/final/B_run_1024_fast_sanity_best600/`.
+
+## Extra Points / Experiments
+
+### Real Image Editing (Inversion + Anime + Semantic Edits)
+
+```bat
+python course1_anime_faces/scripts/real_edit_styleclip.py --inputs_dir course1_anime_faces/final/edits_real/inputs --run_dir course1_anime_faces/results/B_run_1024_fast_sanity --ckpt 000600.pt --size 1024 --inv_steps 320 --edit_steps 100 --seed 42 --out_dir course1_anime_faces/final/edits_real
+```
+
+Outputs:
+- `course1_anime_faces/final/edits_real/outputs/`
+- `course1_anime_faces/final/edits_real/latents/`
+- `course1_anime_faces/final/edits_real/grids/`
+- `course1_anime_faces/final/edits_real/meta/`

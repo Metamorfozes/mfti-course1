@@ -1,0 +1,34 @@
+{
+  "input": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\inputs\\real_04.png",
+  "run_dir": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\results\\B_run_1024_fast_sanity",
+  "ckpt": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\results\\B_run_1024_fast_sanity\\checkpoint\\000600.pt",
+  "ffhq_ckpt": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\models\\stylegan2-ffhq-config-f.pt",
+  "output_files": {
+    "inverted": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\outputs\\real_04_inverted.png",
+    "anime": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\outputs\\real_04_anime.png",
+    "blue_hair": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\outputs\\real_04_blue_hair.png",
+    "glasses": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\outputs\\real_04_glasses.png",
+    "latent": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\latents\\real_04.pt",
+    "grid": "H:\\MFTI\\Course1\\MFTI-Course1\\course1_anime_faces\\final\\edits_real\\grids\\real_04_grid.png"
+  },
+  "settings": {
+    "size": 1024,
+    "seed": 42,
+    "inv_steps": 300,
+    "edit_steps": 120,
+    "truncation": 0.7,
+    "inv_lr": 0.05,
+    "edit_lr": 0.05,
+    "inv_clip_weight": 1.0,
+    "inv_pixel_weight": 0.1,
+    "edit_w_l2_weight": 0.03,
+    "edit_img_weight": 0.03,
+    "edit_base_prompt_weight": 0.15,
+    "base_prompt": "anime portrait",
+    "edit_prompts": [
+      "anime portrait with blue hair",
+      "anime portrait with glasses"
+    ]
+  },
+  "exact_command": "python course1_anime_faces/scripts/real_edit_styleclip.py --inputs_dir 'course1_anime_faces\\final\\edits_real\\inputs' --run_dir 'course1_anime_faces\\results\\B_run_1024_fast_sanity' --ckpt 000600.pt --size 1024 --inv_steps 300 --edit_steps 120 --seed 42 --out_dir 'course1_anime_faces\\final\\edits_real'"
+}

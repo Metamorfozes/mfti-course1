@@ -58,3 +58,20 @@ The project demonstrates that StyleGAN-NADA can adapt a pretrained FFHQ face gen
 ## 8. Editing Generated Images (Synthetic)
 
 To demonstrate synthetic editing (StyleCLIP-like), we apply CLIP-guided latent optimization on a single fixed latent code generated from seed `42` using the adapted checkpoint `course1_anime_faces/results/B_run_1024_fast_sanity/checkpoint/000600.pt`. For each target prompt, the generator is kept frozen and only the latent `w` is optimized for a small number of steps, with regularization that keeps the result close to the base image and base latent. The edit prompts are `"anime portrait with blue hair"` and `"anime portrait with glasses"`. This produces reproducible edits from the same starting identity while changing only the requested semantic attribute. Result grid path: `course1_anime_faces/final/edits_synthetic/grid.png`.
+
+## 9. Real Image Editing
+
+Real-image editing is implemented as a three-stage pipeline:
+1. Invert each real portrait from `course1_anime_faces/final/edits_real/inputs/*.png` into latent `w` with the frozen FFHQ StyleGAN2 generator (`course1_anime_faces/models/stylegan2-ffhq-config-f.pt`) using CLIP image-feature reconstruction plus a small pixel MSE term.
+2. Re-render the same `w` with the adapted anime generator checkpoint `course1_anime_faces/results/B_run_1024_fast_sanity/checkpoint/000600.pt` to get the base anime output.
+3. Perform short CLIP-guided latent optimization on the adapted generator for two prompts: `"anime portrait with blue hair"` and `"anime portrait with glasses"`, while regularizing to the starting latent and base anime image.
+
+Example grids:
+- `../edits_real/grids/real_01_grid.png`
+- `../edits_real/grids/real_02_grid.png`
+
+Reproduce:
+
+```bat
+python course1_anime_faces/scripts/real_edit_styleclip.py --inputs_dir course1_anime_faces/final/edits_real/inputs --run_dir course1_anime_faces/results/B_run_1024_fast_sanity --ckpt 000600.pt --size 1024 --inv_steps 320 --edit_steps 100 --seed 42 --out_dir course1_anime_faces/final/edits_real
+```
